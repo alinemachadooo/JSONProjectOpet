@@ -30,6 +30,7 @@ public class JSONActivity extends Activity {
     }
 
     private class DownloadFromOpenWeather extends AsyncTask<Void, Void, String> {
+        //Assíncrone = Async - não pode travar a atividade principal. Principalmente para programas web que variam a velocidade.
 
         @Override
         protected String doInBackground(Void... params) {
@@ -38,14 +39,14 @@ public class JSONActivity extends Activity {
                 URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=Curitiba&mode=json&units=metric&cnt=1&appid=440b84a8027be4fcf90f9b83e4b45aa9");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestMethod("GET"); //pelo link
                 urlConnection.connect();
 
                 String result = Util.webToString(urlConnection.getInputStream());
 
                 return result;
             } catch (Exception e) {
-                Log.e("Error", "Error ", e);
+                Log.e("Error", "Error ", e); //sistema de Log do android. Criando uma tag chamada ERROR
                 return null;
             } finally{
                 if (urlConnection != null) {
@@ -57,7 +58,12 @@ public class JSONActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            textJSON.setText(s);
+            Previsao previsao = Util.JSONtoPrevisao(s);
+            if(previsao != null) {
+                String data = "Cidade: " + previsao.getCidade() + "\n";
+                data += "Temperatura: " + previsao.getTemperatura();
+                textJSON.setText(data);
+            }
         }
     }
 }

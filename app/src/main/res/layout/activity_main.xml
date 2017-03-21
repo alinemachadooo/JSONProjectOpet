@@ -12,7 +12,7 @@
 
 
     <Button
-        android:onClick="loadJSON"
+        android:onClick="loadJSON (MainActivity)"
         android:text="Carregar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

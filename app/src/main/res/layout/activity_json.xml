@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Carregar JSON da Web"
-        />
+        android:elevation="0dp" />
 
     <TextView
         android:id="@+id/textJSON"
